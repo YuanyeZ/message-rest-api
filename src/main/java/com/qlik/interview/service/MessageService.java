@@ -2,8 +2,17 @@ package com.qlik.interview.service;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * The service that handles all necessary functionalities about the message
+ * Currently we only support validating palindrome
+ */
 @Service
 public class MessageService {
+    /**
+     * Function that check the string is palindrome or not
+     * @param msg the message that needs to be validated
+     * @return whether the input msg is a palindrome or not
+     */
     public boolean isPalindrome(String msg) {
         if(msg == null || msg.length() == 0) {
             return true;
