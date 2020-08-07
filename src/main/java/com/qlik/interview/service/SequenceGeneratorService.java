@@ -11,7 +11,9 @@ import static org.springframework.data.mongodb.core.FindAndModifyOptions.options
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
-
+/**
+ * The service that helps to generate unique message id
+ */
 @Service
 public class SequenceGeneratorService {
 
