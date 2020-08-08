@@ -1,6 +1,13 @@
 package com.qlik.interview.service;
 
+import com.qlik.interview.models.Message;
+import com.qlik.interview.repositories.MessageRepository;
+import com.qlik.interview.utils.MessageNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * The service that handles all necessary functionalities about the message
@@ -8,6 +15,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MessageService {
+    @Autowired
+    private MessageRepository messageRepository;
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
+
     /**
      * Function that check the string is palindrome or not
      * @param msg the message that needs to be validated
@@ -26,5 +38,45 @@ public class MessageService {
             if(i < j && msg.charAt(i++) != msg.charAt(j--)) return false;
         }
         return true;
+    }
+
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
+    }
+
+    public Message getMessageById(long messageId) throws MessageNotFoundException {
+        Message message = messageRepository.findByMessageId(messageId).orElse(null);
+        if (message == null) {
+            throw new MessageNotFoundException(messageId);
+        }
+        return message;
+    }
+
+    public Message createNewMessage(Message message) {
+        message.setMessageId(sequenceGeneratorService.getNextSequence(Message.SEQUENCE_NAME, Message.UNIQUE_ID));
+        message.isPalindrome(isPalindrome(message.getContent()));
+        Date current = new Date();
+        message.setCreatedTime(current);
+        message.setLastUpdate(current);
+        return messageRepository.save(message);
+    }
+
+    public Message updateMessage(long messageId, Message newMessage) throws MessageNotFoundException {
+        Message oldMessage = messageRepository.findByMessageId(messageId).orElse(null);
+        if (oldMessage == null) {
+            throw new MessageNotFoundException(messageId);
+        }
+        oldMessage.setContent(newMessage.getContent());
+        oldMessage.isPalindrome(isPalindrome(newMessage.getContent()));
+        oldMessage.setLastUpdate(new Date());
+        return messageRepository.save(oldMessage);
+    }
+
+    public void deleteByMessageId(long messageId) throws MessageNotFoundException {
+        Message oldMessage = messageRepository.findByMessageId(messageId).orElse(null);
+        if (oldMessage == null) {
+            throw new MessageNotFoundException(messageId);
+        }
+        messageRepository.deleteByMessageId(messageId);
     }
 }

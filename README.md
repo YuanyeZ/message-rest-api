@@ -2,7 +2,9 @@
 
 ### Introduction
 This project build REST APIs for handling messages. 
-To build and run the project locally, run "./run.sh". It requires docker on the host to be able to run it.
+To build and run the project locally, run "./run.sh". 
+The service will listen port 3000 on local host.
+It requires docker on the host to be able to run it.
 
 ### Architecture
 The project uses Spring framework to handle the HTTP requests:
