@@ -6,6 +6,7 @@ import com.qlik.interview.service.validators.PalindromeValidator;
 import com.qlik.interview.service.validators.PalindromeValidatorAlphabet;
 import com.qlik.interview.service.validators.PalindromeValidatorRestrict;
 import com.qlik.interview.utils.MessageNotFoundException;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +44,7 @@ public class MessageServicePalindrome implements MessageService {
     @Override
     public Message createNewMessage(Message message) {
         message.setMessageId(sequenceGeneratorService.getNextSequence(Message.SEQUENCE_NAME, Message.UNIQUE_ID));
-        message.isRestrict(message.isRestrict());
-        message.isPalindrome(getPalindromeValidator(message.isRestrict()).isPalindrome(message.getContent()));
+        message.isPalindrome(getPalindromeValidator(message.isRestrictMode()).isPalindrome(message.getContent()));
         Date current = new Date();
         message.setCreatedTime(current);
         message.setLastUpdate(current);
@@ -53,15 +53,15 @@ public class MessageServicePalindrome implements MessageService {
 
     @Override
     public Message updateMessage(long messageId, Message newMessage) throws MessageNotFoundException {
-        Message oldMessage = messageRepository.findByMessageId(messageId).orElse(null);
-        if (oldMessage == null) {
+        Message updatingMessage = messageRepository.findByMessageId(messageId).orElse(null);
+        if (updatingMessage == null) {
             throw new MessageNotFoundException(messageId);
         }
-        oldMessage.setContent(newMessage.getContent());
-        oldMessage.isRestrict(newMessage.isRestrict());
-        oldMessage.isPalindrome(getPalindromeValidator(newMessage.isRestrict()).isPalindrome(newMessage.getContent()));
-        oldMessage.setLastUpdate(new Date());
-        return messageRepository.save(oldMessage);
+        updatingMessage.setContent(newMessage.getContent());
+        updatingMessage.isRestrictMode(newMessage.isRestrictMode());
+        updatingMessage.isPalindrome(getPalindromeValidator(newMessage.isRestrictMode()).isPalindrome(newMessage.getContent()));
+        updatingMessage.setLastUpdate(new Date());
+        return messageRepository.save(updatingMessage);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class MessageServicePalindrome implements MessageService {
         messageRepository.deleteByMessageId(messageId);
     }
 
-    private PalindromeValidator getPalindromeValidator(boolean restrict) {
+    private static PalindromeValidator getPalindromeValidator(boolean restrict) {
         return restrict ? palindromeValidatorRestrict : palindromeValidatorAlphabet;
     }
 }

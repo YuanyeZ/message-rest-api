@@ -1,6 +1,7 @@
 package com.qlik.interview.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.annotation.Version;
@@ -22,7 +23,8 @@ public class Message {
     private String id;
     private long messageId;
     private String content;
-    private boolean isRestrict;
+    @JsonProperty(value = "restrictMode", defaultValue = "false")
+    private boolean isRestrictMode;
     private boolean isPalindrome;
     private Date createdTime;
     private Date lastUpdate;
@@ -47,12 +49,12 @@ public class Message {
         this.content = content;
     }
 
-    public boolean isRestrict() {
-        return isRestrict;
+    public boolean isRestrictMode() {
+        return isRestrictMode;
     }
 
-    public void isRestrict(boolean restrict) {
-        isRestrict = restrict;
+    public void isRestrictMode(boolean isRestrictMode) {
+        this.isRestrictMode = isRestrictMode;
     }
 
     public boolean isPalindrome() {
@@ -60,7 +62,7 @@ public class Message {
     }
 
     public void isPalindrome(boolean palindrome) {
-        isPalindrome = palindrome;
+        this.isPalindrome = palindrome;
     }
 
     @NonNull
