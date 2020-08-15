@@ -7,7 +7,7 @@ services:
       - ./data/db:/data/db
       - ./data/logs/db:/var/log/mongodb
   app:
-    image: messages-rest-api-docker
+    image: tedzyy/rest:messages-rest-api-docker
     container_name: "messages-rest-api"
     volumes:
       - ./data/logs/app:/logs
