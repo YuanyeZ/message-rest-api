@@ -22,6 +22,7 @@ public class Message {
     private String id;
     private long messageId;
     private String content;
+    private boolean isRestrict;
     private boolean isPalindrome;
     private Date createdTime;
     private Date lastUpdate;
@@ -44,6 +45,14 @@ public class Message {
 
     public void setContent(@NonNull String content) {
         this.content = content;
+    }
+
+    public boolean isRestrict() {
+        return isRestrict;
+    }
+
+    public void isRestrict(boolean restrict) {
+        isRestrict = restrict;
     }
 
     public boolean isPalindrome() {
@@ -88,5 +97,27 @@ public class Message {
                 ", content='" + content + '\'' +
                 ", isPalindrome=" + isPalindrome +
                 '}';
+    }
+
+    public static class Builder {
+        private long messageId;
+        private String content;
+
+        public Builder setMessageId(long id) {
+            this.messageId = id;
+            return this;
+        }
+
+        public Builder setContent(String msg) {
+            this.content = msg;
+            return this;
+        }
+
+        public Message build() {
+            Message message = new Message();
+            message.setMessageId(this.messageId);
+            message.setContent(this.content);
+            return message;
+        }
     }
 }
