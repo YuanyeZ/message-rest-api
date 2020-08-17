@@ -3,8 +3,10 @@ steps:
     entrypoint: gradle
     args: ['build']
   - name: gcr.io/cloud-builders/docker
-    args: ['build', '-t', 'gcr.io/message-rest-api/message-rest-api-docker', '--build-arg=JAR_FILE=build/libs/*.jar', '.']
+    args: ['build', '-t', 'gcr.io/message-rest-api/message-rest-api-docker:$SHORT_SHA', '--build-arg=JAR_FILE=build/libs/*.jar', '.']
   - name: gcr.io/cloud-builders/docker
-    args: ['push', 'gcr.io/message-rest-api/message-rest-api-docker']
-  - name: docker/compose
-    args: ['up', '-d']
+    args: ['push', 'gcr.io/message-rest-api/message-rest-api-docker:$SHORT_SHA']
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args: ['run', 'deploy', 'message-rest-api-docker', '--image', 'gcr.io/message-rest-api/message-rest-api-docker:$SHORT_SHA',
+            '--region', 'us-central1', '--platform', 'managed']

@@ -1,8 +1,8 @@
 version: "3"
 services:
   app:
-    image: gcr.io/message-rest-api/message-rest-api-docker
-    container_name: "message-rest-api"
+    image: tedzyy/messages-rest-api-docker
+    container_name: "messages-rest-api"
     volumes:
       - ./data/logs/app:/logs
     ports:
