@@ -67,7 +67,9 @@ key of database.
 -   version: the field for multi-version concurrency control
 
 ### Deployment
-The project has been deployed to GCP https://message-rest-api-docker-pm7foyk4ma-uc.a.run.app
-Eg. https://message-rest-api-docker-pm7foyk4ma-uc.a.run.app/api/v1/messages will retrieve all the messages
-continuousely deployment is enabled on the project: any push to `gcp` branch will trigger the build and deployment.
+The project has been deployed to the clound
+#### public access https://message-rest-api-docker-pm7foyk4ma-uc.a.run.app 
+eg. https://message-rest-api-docker-pm7foyk4ma-uc.a.run.app/api/v1/messages will retrieve all the messages
+#### continuousely deployment is enabled for this project 
+any push to `gcp` branch will trigger the build and deployment
 
