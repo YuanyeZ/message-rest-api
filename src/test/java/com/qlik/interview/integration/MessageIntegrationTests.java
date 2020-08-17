@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyByte;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -66,11 +67,10 @@ public class MessageIntegrationTests {
     }
 
     @Test
-    @Disabled
     public void testCreateMessage() throws Exception {
         Message message = new Message.Builder().setMessageId(1).setContent("test message").build();
         try {
-            when(messageService.createNewMessage(message)).thenReturn(message);
+            when(messageService.createNewMessage(any(Message.class))).thenReturn(message);
             mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/message")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(new ObjectMapper().writeValueAsBytes(message)))
@@ -83,13 +83,11 @@ public class MessageIntegrationTests {
     }
 
     @Test
-    @Disabled
     public void testUpdateMessage() throws Exception {
-        Message oldMessage = new Message.Builder().setMessageId(1).setContent("old message").build();
         Message newMessage = new Message.Builder().setMessageId(1).setContent("new message").build();
 
         try {
-            when(messageService.updateMessage(1, oldMessage)).thenReturn(newMessage);
+            when(messageService.updateMessage(any(Long.class), any(Message.class))).thenReturn(newMessage);
             mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/messages/1")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(new ObjectMapper().writeValueAsBytes(newMessage)))

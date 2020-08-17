@@ -1,5 +1,8 @@
 package com.qlik.interview.service.validators;
 
+/**
+ * Count only alphabet characters and digits in lowercase for palindrome
+ */
 public class PalindromeValidatorAlphabet implements PalindromeValidator {
     @Override
     public boolean isPalindrome(String content) {

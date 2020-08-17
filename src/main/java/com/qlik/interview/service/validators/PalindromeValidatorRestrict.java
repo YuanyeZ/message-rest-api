@@ -1,5 +1,8 @@
 package com.qlik.interview.service.validators;
 
+/**
+ * Count all the characters in original format for palindrome
+ */
 public class PalindromeValidatorRestrict implements PalindromeValidator {
     @Override
     public boolean isPalindrome(String content) {
