@@ -4,7 +4,6 @@
 This project build REST APIs for handling messages.  
 The service will listen port 3000. 
 It requires docker on the host to be able to run it locally.
-The project has been deployed to GCP with public IP address: 35.203.6.31.
 #### build the project
 ./gradlew clean && ./gradlew assemble 
 #### test the project
@@ -66,3 +65,9 @@ key of database.
 -   createdTime: timestamp to create the message
 -   lastUpdate: timestamp to update the message
 -   version: the field for multi-version concurrency control
+
+### Deployment
+The project has been deployed to GCP https://message-rest-api-docker-pm7foyk4ma-uc.a.run.app
+Eg. https://message-rest-api-docker-pm7foyk4ma-uc.a.run.app/api/v1/messages will retrieve all the messages
+continuousely deployment is enabled on the project: any push to `gcp` branch will trigger the build and deployment.
+
