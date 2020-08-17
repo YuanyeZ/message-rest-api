@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * The service that handles all necessary functionalities about the message
@@ -50,6 +51,11 @@ public class MessageServicePalindrome implements MessageService {
         message.setCreatedTime(current);
         message.setLastUpdate(current);
         return messageRepository.save(message);
+    }
+
+    @Override
+    public List<Message> createNewMessages(List<Message> messages) {
+        return messages.stream().map(this::createNewMessage).collect(Collectors.toList());
     }
 
     @Override

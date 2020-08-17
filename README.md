@@ -43,6 +43,12 @@ key of database.
   In the message, "content" is the necessary field. For example, 
   { "content": "hello world" } 
 - return the message created
+#### POST /api/v1/messages
+- parameter: 
+  - request body: list of message objects (JSON) we would like to create. 
+  In the message, "content" is the necessary field. For example, 
+  [{ "content": "first msg" }，{ "content": "second msg" }] 
+- return the list of messages created
 #### PUT /api/v1/messages/{messageId}
 - parameter: 
   - messageId: id of the message we would like to update
