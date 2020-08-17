@@ -1,0 +1,10 @@
+steps:
+  - name: gradle:6.6.0-jdk11
+    entrypoint: gradle
+    args: ['build']
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/message-rest-api/message-rest-api-docker', '--build-arg=JAR_FILE=build/libs/*.jar', '.']
+  - name: gcr.io/cloud-builders/docker
+    args: ['push', 'gcr.io/message-rest-api/message-rest-api-docker']
+  - name: docker/compose
+    args: ['up', '-d']
