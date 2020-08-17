@@ -17,14 +17,14 @@ The project has been deployed to GCP with public IP address: 35.203.6.31.
 
 ### Architecture
 The project uses Spring framework to handle the HTTP requests:
-1) This project uses MVC pattern for API design
+##### 1. This project uses MVC pattern for API design。
 - The REST requests (CRUD) will be processed by handlers in MessageController.java.
 - The MessageRepository.java is the persistence layer that will help to store the objects to database. 
-2）MongoDB is used in the project for flexible storing the Message with highly availability
+##### 2. MongoDB is used in the project for flexible storing the Message with highly availability.
 - SequenceGeneratorService.java is used to generate unique message id without exposing the primary 
 key of database.
 - Version is used to avoid multi-thread conflicts
-3) This project provides two strategies to validate the palindrome
+##### 3. This project provides two strategies to validate the palindrome。
 - Restrict: it validates all the characters with origin format
 - Alphabet: it validates only the alphabet and digit in the message with case-insensitive
 - The mode could be selected by sending the 'restrictMode' in the payload
