@@ -45,6 +45,11 @@ public class MessageController {
         return messageService.createNewMessage(message);
     }
 
+    @PostMapping("/messages")
+    public List<Message> createMessages(@RequestBody List<Message> messages) {
+        return messageService.createNewMessages(messages);
+    }
+
     @PutMapping("/messages/{messageId}")
     public Message updateMessage(@PathVariable(value = "messageId") long messageId,
                                  @RequestBody Message newMessage) {
