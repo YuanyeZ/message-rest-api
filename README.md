@@ -1,8 +1,7 @@
 # Rest API for Messages
 
 ### Introduction
-This project build REST APIs for handling messages.  
-The service will listen port 3000. 
+This project build REST APIs for handling messages. 
 It requires docker on the host to be able to run it locally.
 #### build the project
 ./gradlew clean && ./gradlew assemble 
@@ -71,7 +70,7 @@ key of database.
 ### Deployment
 The project has been deployed to the clound
 #### public access https://message-rest-api-docker-pm7foyk4ma-uc.a.run.app 
-eg. https://message-rest-api-docker-pm7foyk4ma-uc.a.run.app/api/v1/messages will retrieve all the messages
-#### continuousely deployment is enabled for this project 
+eg. https://message-rest-api-docker-pm7foyk4ma-uc.a.run.app/api/v1/messages will retrieve all the messages.
+#### continuously deployment is enabled for this project 
 any push to `gcp` branch will trigger the build and deployment
 
