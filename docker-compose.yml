@@ -1,19 +1,9 @@
 version: "3"
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: "mongodb"
-    volumes:
-      - ./data/db:/data/db
-      - ./data/logs/db:/var/log/mongodb
   app:
-    image: tedzyy/messages-rest-api-docker
-    container_name: "messages-rest-api"
+    image: gcr.io/message-rest-api/message-rest-api-docker
+    container_name: "message-rest-api"
     volumes:
       - ./data/logs/app:/logs
-    depends_on:
-      - mongodb
     ports:
-      - 3000:8080
-    links:
-      - mongodb
+      - 8080:8080
