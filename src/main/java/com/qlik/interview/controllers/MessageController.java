@@ -25,9 +25,13 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    private static final String DEFAULT_OFFSET = "0";
+    private static final String DEFAULT_LIMIT = "5";
+
     @GetMapping("/messages")
-    public List<Message> getMessages() {
-        return messageService.getAllMessages();
+    public List<Message> getMessages(@RequestParam(value = "offset", defaultValue = DEFAULT_OFFSET) int offset,
+                                     @RequestParam(value = "limit", defaultValue = DEFAULT_LIMIT) int limit) {
+        return messageService.getAllMessages(offset, limit);
     }
 
     @GetMapping("/messages/{messageId}")

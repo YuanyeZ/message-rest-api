@@ -8,6 +8,7 @@ import com.qlik.interview.service.validators.PalindromeValidatorRestrict;
 import com.qlik.interview.service.validators.PalindromeValidatorType;
 import com.qlik.interview.utils.MessageNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -30,8 +31,8 @@ public class MessageServicePalindrome implements MessageService {
     );
 
     @Override
-    public List<Message> getAllMessages() {
-        return messageRepository.findAll();
+    public List<Message> getAllMessages(int offset, int limit) {
+        return messageRepository.findAll(PageRequest.of(offset, limit)).getContent();
     }
 
     @Override
