@@ -5,7 +5,6 @@ import com.qlik.interview.models.Message;
 import com.qlik.interview.service.MessageService;
 import com.qlik.interview.utils.MessageNotFoundException;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import java.util.Arrays;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyByte;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,7 +38,7 @@ public class MessageIntegrationTests {
     public void testGetMessages() throws Exception {
         Message message1 = new Message.Builder().setMessageId(1).setContent("my message 1").build();
         Message message2 = new Message.Builder().setMessageId(2).setContent("my message 2").build();
-        when(messageService.getAllMessages()).thenReturn(Arrays.asList(message1, message2));
+        when(messageService.getAllMessages(0, 5)).thenReturn(Arrays.asList(message1, message2));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/messages"))
                 .andExpect(status().isOk())

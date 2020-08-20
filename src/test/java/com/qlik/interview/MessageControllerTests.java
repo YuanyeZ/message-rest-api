@@ -27,9 +27,9 @@ public class MessageControllerTests {
     public void testGetMessages() {
         Message message1 = new Message.Builder().setMessageId(1).setContent("my message 1").build();
         Message message2 = new Message.Builder().setMessageId(2).setContent("my message 2").build();
-        when(messageService.getAllMessages()).thenReturn(Arrays.asList(message1, message2));
+        when(messageService.getAllMessages(0, 5)).thenReturn(Arrays.asList(message1, message2));
 
-        List<Message> messageList = messageController.getMessages();
+        List<Message> messageList = messageController.getMessages(0, 5);
         assertThat(messageList.size()).isEqualTo(2);
         assertThat(messageList.get(0)).isEqualTo(message1);
         assertThat(messageList.get(1)).isEqualTo(message2);
