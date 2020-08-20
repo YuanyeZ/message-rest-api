@@ -6,7 +6,7 @@ import com.qlik.interview.utils.MessageNotFoundException;
 import java.util.List;
 
 public interface MessageService {
-    List<Message> getAllMessages(int offset, int limit);
+    List<Message> getAllMessages(int page, int size);
     Message getMessageById(long messageId) throws MessageNotFoundException;
     Message createNewMessage(Message message);
     List<Message> createNewMessages(List<Message> messages);
