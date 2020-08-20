@@ -31,8 +31,8 @@ public class MessageServicePalindrome implements MessageService {
     );
 
     @Override
-    public List<Message> getAllMessages(int offset, int limit) {
-        return messageRepository.findAll(PageRequest.of(offset, limit)).getContent();
+    public List<Message> getAllMessages(int page, int size) {
+        return messageRepository.findAll(PageRequest.of(page, size)).getContent();
     }
 
     @Override

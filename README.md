@@ -30,27 +30,30 @@ key of database.
 - The mode could be selected by sending the 'restrictMode' in the payload
 
 ### REST APIs
-#### GET /api/v1/messages
+#### GET /api/v1/messages?page={page}&size={size}
+- parameters: 
+  - page: zero-based page index. Default is 0.
+  - size: the size of the page to be returned. Default is 5.
 - return all the messages in the system
 #### GET /api/v1/messages/{messageId}
-- parameter: 
+- parameters: 
   - messageId: id of the message we would like to get.
 - return the message with specific message id
 - MessageNotFoundException is thrown if the message not found
 #### POST /api/v1/message
-- parameter: 
+- parameters: 
   - request body: message object (JSON) we would like to create. 
   In the message, "content" is the necessary field. For example, 
   { "content": "hello world" } 
 - return the message created
 #### POST /api/v1/messages
-- parameter: 
+- parameters: 
   - request body: list of message objects (JSON) we would like to create. 
   In the message, "content" is the necessary field. For example, 
   [{ "content": "first msg" }，{ "content": "second msg" }] 
 - return the list of messages created
 #### PUT /api/v1/messages/{messageId}
-- parameter: 
+- parameters: 
   - messageId: id of the message we would like to update
   - request body: message object (JSON) we would like to update.
    For example, sending { "content": "new message" } to 
@@ -58,7 +61,7 @@ key of database.
 - return the updated message
 - MessageNotFoundException is thrown if the message not found
 #### DELETE /api/v1/messages/{messageId}
-- parameter: 
+- parameters: 
   - messageId: id of the message we would like to delete
 - MessageNotFoundException is thrown if the message not found
 
