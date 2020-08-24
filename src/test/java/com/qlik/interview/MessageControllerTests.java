@@ -25,8 +25,8 @@ public class MessageControllerTests {
 
     @Test
     public void testGetMessages() {
-        Message message1 = new Message.Builder().setMessageId(1).setContent("my message 1").build();
-        Message message2 = new Message.Builder().setMessageId(2).setContent("my message 2").build();
+        Message message1 = new Message.Builder().setId("1").setContent("my message 1").build();
+        Message message2 = new Message.Builder().setId("2").setContent("my message 2").build();
         when(messageService.getAllMessages(0, 5)).thenReturn(Arrays.asList(message1, message2));
 
         List<Message> messageList = messageController.getMessages(0, 5);
@@ -37,18 +37,18 @@ public class MessageControllerTests {
 
     @Test
     public void testGetMessagesById() throws MessageNotFoundException {
-        Message message1 = new Message.Builder().setMessageId(1).setContent("my message 1").build();
+        Message message1 = new Message.Builder().setId("1").setContent("my message 1").build();
         when(messageService.getMessageById("1")).thenReturn(message1);
-        assertThat(messageController.getMessageById("1").getMessageId()).isEqualTo(1);
+        assertThat(messageController.getMessageById("1").getId()).isEqualTo("1");
     }
 
     @Test
     public void testCreateMessage() {
-        Message testMessage = new Message.Builder().setMessageId(1).setContent("test").build();
+        Message testMessage = new Message.Builder().setId("1").setContent("test").build();
         when(messageService.createNewMessage(testMessage)).thenReturn(testMessage);
         Message updatedMessage = messageController.createMessage(testMessage);
         assertThat(updatedMessage.getContent()).isEqualTo("test");
-        assertThat(updatedMessage.getMessageId()).isEqualTo(1);
+        assertThat(updatedMessage.getId()).isEqualTo("1");
     }
 
     @Test
@@ -62,7 +62,7 @@ public class MessageControllerTests {
 
     @Test
     public void testDeleteMessage() throws MessageNotFoundException {
-        Message message = new Message.Builder().setMessageId(1).setContent("test").build();
+        Message message = new Message.Builder().setId("1").setContent("test").build();
         when(messageService.getMessageById("1")).thenReturn(message);
 
         messageController.deleteMessage(message.getId());
