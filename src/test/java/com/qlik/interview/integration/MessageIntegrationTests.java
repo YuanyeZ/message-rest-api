@@ -36,10 +36,9 @@ public class MessageIntegrationTests {
     private MessageService messageService;
 
     @Test
-    @Disabled
     public void testGetMessages() throws Exception {
-        Message message1 = new Message.Builder().setMessageId(1).setContent("my message 1").build();
-        Message message2 = new Message.Builder().setMessageId(2).setContent("my message 2").build();
+        Message message1 = new Message.Builder().setId("1").setContent("my message 1").build();
+        Message message2 = new Message.Builder().setId("2").setContent("my message 2").build();
         when(messageService.getAllMessages(0, 5)).thenReturn(Arrays.asList(message1, message2));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/messages"))
@@ -53,9 +52,8 @@ public class MessageIntegrationTests {
     }
 
     @Test
-    @Disabled
     public void testGetMessageById() throws Exception {
-        Message message = new Message.Builder().setMessageId(1).setContent("test message").build();
+        Message message = new Message.Builder().setId("1").setContent("test message").build();
         try {
             when(messageService.getMessageById("1")).thenReturn(message);
             mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/messages/{id}", 1L))
@@ -68,9 +66,8 @@ public class MessageIntegrationTests {
     }
 
     @Test
-    @Disabled
     public void testCreateMessage() throws Exception {
-        Message message = new Message.Builder().setMessageId(1).setContent("test message").build();
+        Message message = new Message.Builder().setId("1").setContent("test message").build();
         try {
             when(messageService.createNewMessage(any(Message.class))).thenReturn(message);
             mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/message")
@@ -85,9 +82,8 @@ public class MessageIntegrationTests {
     }
 
     @Test
-    @Disabled
     public void testUpdateMessage() throws Exception {
-        Message newMessage = new Message.Builder().setMessageId(1).setContent("new message").build();
+        Message newMessage = new Message.Builder().setId("1").setContent("new message").build();
 
         try {
             when(messageService.updateMessage(any(String.class), any(Message.class))).thenReturn(newMessage);

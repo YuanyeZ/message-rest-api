@@ -113,8 +113,14 @@ public class Message {
     }
 
     public static class Builder {
+        private String id;
         private long messageId;
         private String content;
+
+        public Builder setId(String id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder setMessageId(long id) {
             this.messageId = id;
@@ -128,6 +134,7 @@ public class Message {
 
         public Message build() {
             Message message = new Message();
+            message.setId(this.id);
             message.setMessageId(this.messageId);
             message.setContent(this.content);
             return message;
