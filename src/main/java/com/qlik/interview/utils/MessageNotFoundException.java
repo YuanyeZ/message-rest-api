@@ -8,7 +8,7 @@ public class MessageNotFoundException extends Exception {
 
     private static final long serialVersionUID = 1L;
 
-    public MessageNotFoundException(long messageId){
-        super(String.format("Message was not found for id: %d", messageId));
+    public MessageNotFoundException(String id){
+        super(String.format("Message was not found for id: %s", id));
     }
 }

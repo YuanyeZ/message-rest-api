@@ -36,10 +36,10 @@ public class MessageServicePalindrome implements MessageService {
     }
 
     @Override
-    public Message getMessageById(long messageId) throws MessageNotFoundException {
-        Message message = messageRepository.findByMessageId(messageId).orElse(null);
+    public Message getMessageById(String id) throws MessageNotFoundException {
+        Message message = messageRepository.findById(id).orElse(null);
         if (message == null) {
-            throw new MessageNotFoundException(messageId);
+            throw new MessageNotFoundException(id);
         }
         return message;
     }
@@ -60,10 +60,10 @@ public class MessageServicePalindrome implements MessageService {
     }
 
     @Override
-    public Message updateMessage(long messageId, Message newMessage) throws MessageNotFoundException {
-        Message updatingMessage = messageRepository.findByMessageId(messageId).orElse(null);
+    public Message updateMessage(String id, Message newMessage) throws MessageNotFoundException {
+        Message updatingMessage = messageRepository.findById(id).orElse(null);
         if (updatingMessage == null) {
-            throw new MessageNotFoundException(messageId);
+            throw new MessageNotFoundException(id);
         }
         updatingMessage.setContent(newMessage.getContent());
         updatingMessage.isRestrictMode(newMessage.isRestrictMode());
@@ -73,12 +73,12 @@ public class MessageServicePalindrome implements MessageService {
     }
 
     @Override
-    public void deleteByMessageId(long messageId) throws MessageNotFoundException {
-        Message oldMessage = messageRepository.findByMessageId(messageId).orElse(null);
+    public void deleteByMessageId(String id) throws MessageNotFoundException {
+        Message oldMessage = messageRepository.findById(id).orElse(null);
         if (oldMessage == null) {
-            throw new MessageNotFoundException(messageId);
+            throw new MessageNotFoundException(id);
         }
-        messageRepository.deleteByMessageId(messageId);
+        messageRepository.deleteById(id);
     }
 
     private static PalindromeValidatorType getPalindromeType(boolean isRestrict) {
