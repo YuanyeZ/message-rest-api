@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface MessageService {
     List<Message> getAllMessages(int page, int size);
-    Message getMessageById(long messageId) throws MessageNotFoundException;
+    Message getMessageById(String id) throws MessageNotFoundException;
     Message createNewMessage(Message message);
     List<Message> createNewMessages(List<Message> messages);
-    Message updateMessage(long messageId, Message newMessage) throws MessageNotFoundException;
-    void deleteByMessageId(long messageId) throws MessageNotFoundException;
+    Message updateMessage(String id, Message newMessage) throws MessageNotFoundException;
+    void deleteByMessageId(String id) throws MessageNotFoundException;
 }

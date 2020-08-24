@@ -34,10 +34,10 @@ public class MessageController {
         return messageService.getAllMessages(page, size);
     }
 
-    @GetMapping("/messages/{messageId}")
-    public Message getMessageById(@PathVariable(value = "messageId") long messageId) {
+    @GetMapping("/messages/{id}")
+    public Message getMessageById(@PathVariable(value = "id") String id) {
         try {
-            return messageService.getMessageById(messageId);
+            return messageService.getMessageById(id);
         } catch (MessageNotFoundException e) {
             LOGGER.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -54,21 +54,21 @@ public class MessageController {
         return messageService.createNewMessages(messages);
     }
 
-    @PutMapping("/messages/{messageId}")
-    public Message updateMessage(@PathVariable(value = "messageId") long messageId,
+    @PutMapping("/messages/{id}")
+    public Message updateMessage(@PathVariable(value = "id") String id,
                                  @RequestBody Message newMessage) {
         try {
-            return messageService.updateMessage(messageId, newMessage);
+            return messageService.updateMessage(id, newMessage);
         } catch (MessageNotFoundException e) {
             LOGGER.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
-    @DeleteMapping("/messages/{messageId}")
-    public void deleteMessage(@PathVariable(value = "messageId") long messageId) {
+    @DeleteMapping("/messages/{id}")
+    public void deleteMessage(@PathVariable(value = "id") String id) {
         try {
-            messageService.deleteByMessageId(messageId);
+            messageService.deleteByMessageId(id);
         } catch (MessageNotFoundException e) {
             LOGGER.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());

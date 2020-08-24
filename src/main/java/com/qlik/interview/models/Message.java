@@ -20,7 +20,9 @@ public class Message {
     public static final String UNIQUE_ID = "messageId";
 
     @Id
+    @JsonProperty(value = "id", defaultValue = "")
     private String id;
+    @JsonIgnore
     private long messageId;
     private String content;
     @JsonProperty(value = "restrictMode", defaultValue = "false")
@@ -31,6 +33,14 @@ public class Message {
     @JsonIgnore
     @Version
     private Long version;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public long getMessageId() {
         return messageId;

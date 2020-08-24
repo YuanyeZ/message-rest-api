@@ -38,8 +38,8 @@ public class MessageControllerTests {
     @Test
     public void testGetMessagesById() throws MessageNotFoundException {
         Message message1 = new Message.Builder().setMessageId(1).setContent("my message 1").build();
-        when(messageService.getMessageById(1)).thenReturn(message1);
-        assertThat(messageController.getMessageById(1).getMessageId()).isEqualTo(1);
+        when(messageService.getMessageById("1")).thenReturn(message1);
+        assertThat(messageController.getMessageById("1").getMessageId()).isEqualTo(1);
     }
 
     @Test
@@ -55,17 +55,17 @@ public class MessageControllerTests {
     public void testUpdateMessage() throws MessageNotFoundException {
         Message oldMessage = new Message.Builder().setContent("old message").build();
         Message newMessage = new Message.Builder().setContent("new message").build();
-        when(messageService.updateMessage(1, oldMessage)).thenReturn(newMessage);
+        when(messageService.updateMessage("1", oldMessage)).thenReturn(newMessage);
 
-        assertThat(messageController.updateMessage(1, oldMessage)).isEqualTo(newMessage);
+        assertThat(messageController.updateMessage("1", oldMessage)).isEqualTo(newMessage);
     }
 
     @Test
     public void testDeleteMessage() throws MessageNotFoundException {
         Message message = new Message.Builder().setMessageId(1).setContent("test").build();
-        when(messageService.getMessageById(1)).thenReturn(message);
+        when(messageService.getMessageById("1")).thenReturn(message);
 
-        messageController.deleteMessage(message.getMessageId());
-        verify(messageService, times(1)).deleteByMessageId(message.getMessageId());
+        messageController.deleteMessage(message.getId());
+        verify(messageService, times(1)).deleteByMessageId(message.getId());
     }
 }
